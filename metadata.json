@@ -1,0 +1,9 @@
+
+{
+  "name": "Raffy & Marry May | Forever",
+  "description": "A luxury one-scroll wedding application featuring RSVP management, event scheduling, and personalized storytelling.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}

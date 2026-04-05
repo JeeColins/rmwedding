@@ -1,0 +1,37 @@
+{
+  "name": "rmwedding-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"vite\"",
+    "dev:server": "nodemon server/index.js",
+    "start:server": "node server/index.js",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^1.38.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.7.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@express-rate-limit/tsconfig": "^1.0.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "express-rate-limit": "^8.2.1",
+    "nodemon": "^3.1.11",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^7.3.1"
+  }
+}
