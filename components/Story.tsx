@@ -50,7 +50,7 @@ const Story: React.FC = () => {
               <img 
                 src={moment.imageUrl} 
                 alt={moment.title} 
-                className="w-full h-[500px] object-cover md:object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-[600px] object-cover md:object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </motion.div>
             <motion.div 

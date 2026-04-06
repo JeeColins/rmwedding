@@ -189,7 +189,10 @@ const App: React.FC = () => {
       </main>
       
       <footer className="py-12 bg-[#0c162c] text-center">
-        <div className="serif text-2xl mb-4 text-[#c19a6b]">R & M</div>
+        <div className="serif text-2xl mb-4 text-[#c19a6b]">
+          {/* R & M */}
+          <img src="/img/rmlogo.png" alt="rmlogo" className="w-[80px] h-[80px] object-fit mx-auto" />
+        </div>
         <p className="text-xs uppercase tracking-[0.4em] text-gray-100 mb-2">Made with love • 2026</p>
         <div className="flex justify-center gap-6 mt-6">
           <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors">Instagram</a>

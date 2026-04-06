@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { ENTOURAGE, PRINCIPAL_SPONSORS, WEDDING_DATE } from '../constants';
+import { ENTOURAGE, PRINCIPAL_SPONSORS, SECONDARY_SPONSORS, WEDDING_DATE } from '../constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Entourage: React.FC = () => {
   const allMembers = [
+    ...PRINCIPAL_SPONSORS.map(m => ({ ...m, category: 'Principal Sponsor' })),
+    ...SECONDARY_SPONSORS.map(m => ({ ...m, category: 'Secondary Sponsor' })),
     ...ENTOURAGE.map(m => ({ ...m, category: 'Wedding Party' })),
-    ...PRINCIPAL_SPONSORS.map(m => ({ ...m, category: 'Principal Sponsor' }))
   ];
 
   useEffect(() => {
@@ -111,7 +112,7 @@ const Entourage: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
               >
-                {isCurrentlyMystery ? 'Mystery Couple' : currentMember.name}
+                {isCurrentlyMystery ? '???' : currentMember.name}
               </motion.h3>
               <motion.p 
                 className="text-sm text-[#c19a6b] italic serif mb-8"
@@ -119,7 +120,7 @@ const Entourage: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.15 }}
               >
-                {isCurrentlyMystery ? 'To be revealed when countdown expires...' : currentMember.role}
+                {isCurrentlyMystery ? '???' : currentMember.role}
               </motion.p>
 
               <motion.div 

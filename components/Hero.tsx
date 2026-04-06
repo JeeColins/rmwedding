@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
         >
           {/* Raffy <br /> & <br />Mary May */}
-          <img src="/img/rflogo.png" alt="rmlogo" className="w-full h-[450px] object-fit" />
+          <img src="/img/rflogo.png" alt="rmlogo" className="w-full h-[400px] object-fit" />
         </motion.h1>
         <motion.div 
           className="h-px w-32 bg-white/40 mx-auto mb-5"
@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
         </motion.p>
         
         <motion.div 
-          className="inline-flex gap-4 md:gap-8 items-center bg-white/10 backdrop-blur-md border border-white/20 px-8 py-6 rounded-2xl shadow-2xl"
+          className="inline-flex gap-4 md:gap-8 items-center bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}

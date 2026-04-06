@@ -64,18 +64,34 @@ const RSVP: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors', // Apps Script requires no-cors for simple redirect-less posts
-        cache: 'no-cache',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      // Split names by comma and trim whitespace
+      const names = formData.fullName.split(',').map(name => name.trim()).filter(name => name !== '');
+      
+      if (names.length === 0) {
+        setError("Please enter at least one name.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Send a separate request for each name to ensure they appear as individual rows in the sheet
+      const requests = names.map(name => {
+        const submissionData = {
+          ...formData,
+          fullName: name
+        };
+        
+        return fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submissionData),
+        });
       });
 
-      // Note: with 'no-cors', we won't get a proper response body/status. 
-      // We assume success if no error is thrown during the fetch.
+      await Promise.all(requests);
       setSubmitted(true);
     } catch (err) {
       console.error("RSVP Submission Error:", err);
@@ -86,6 +102,7 @@ const RSVP: React.FC = () => {
   };
 
   if (submitted) {
+    const isAttending = formData.attending === 'yes';
     return (
       <section id="rsvp" className="py-24 px-6 bg-[#0c162c] text-center">
         <motion.div 
@@ -96,17 +113,32 @@ const RSVP: React.FC = () => {
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
           <motion.div 
-            className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8"
+            // className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8"
+            className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 ${isAttending ? 'bg-green-50' : 'bg-gray-50'}`}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
           >
-            <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-            </svg>
+            </svg> */}
+            {isAttending ? (
+              <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            )}
           </motion.div>
           <h2 className="text-3xl serif mb-4">Thank You!</h2>
-          <p className="text-gray-600 italic mb-8">Your RSVP has been received and saved to our guest list. We can't wait to celebrate with you!<br />(Table assignment to be announced on April 15, 2026)</p>
+          <p className="text-gray-600 italic mb-8">
+            {/* Your RSVP has been received and saved to our guest list. We can't wait to celebrate with you!<br />(Table assignment to be announced on April 15, 2026) */}
+            {isAttending 
+              ? "Your RSVP has been received and saved to our guest list. We can't wait to celebrate with you!" 
+              : "Thank you for letting us know. We're sorry you can't make it, but we'll be thinking of you on our special day!"}
+          </p>
           <motion.button 
             onClick={() => setSubmitted(false)}
             className="text-[#c19a6b] font-bold uppercase tracking-widest text-xs border-b border-[#c19a6b] pb-1 hover:opacity-70 transition-opacity"
@@ -120,6 +152,8 @@ const RSVP: React.FC = () => {
     );
   }
 
+  const isAttending = formData.attending === 'yes';
+
   return (
     <section id="rsvp" className="py-24 bg-[#0c162c] text-white">
       <motion.div 
@@ -129,12 +163,14 @@ const RSVP: React.FC = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.3 }}
       >
-        <motion.div className='col-span-3 mb-5 mt-5'>
-          <img src="/img/rsvp.png" alt="RSVP" className="w-full h-full object-fit rounded-3xl shadow-lg" />
+        <motion.div className='col-span-3'>
+          <img src="/img/rsvp.png" alt="RSVP" className="w-full h-full object-fit rounded-1xl shadow-lg" />
         </motion.div>
         <motion.form 
           onSubmit={handleSubmit} 
-          className="grid grid-cols-1 mb-5 mt-5 md:grid-cols-1 gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden"
+          // className="grid grid-cols-1 md:grid-cols-1 gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative overflow-hidden"
+          className={`grid grid-cols-1 ${isAttending ? 'md:grid-cols-1' : ''} gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative 
+          overflow-hidden transition-all duration-500`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}

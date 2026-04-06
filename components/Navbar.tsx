@@ -49,12 +49,12 @@ const Navbar: React.FC = () => {
   const toggleMenu = () => setMenuOpen((o) => !o);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full right-0 z-50 transition-all duration-300 px-6 py-4 flex justify-between items-center ${
+    <nav className={`fixed top-0 left-0 w-full right-0 z-50 transition-all duration-300 px-4 py-3 flex justify-between items-center ${
       // isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-md' : 'bg-transparent text-white'
       show ? "translate-y-0" : "-translate-y-full"
     }`}>
       <div className={`text-2xl serif transition-colors ${show ? 'text-white' : 'text-white'}`}>
-        R & M
+        <img src="/img/rmlogo.png" alt="RSVP" className="w-[55px] h-[55px] object-fit md:w-[65px] h-[65px] object-fit" />
       </div>
       {/* hamburger button for small screens */}
       <button

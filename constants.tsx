@@ -17,9 +17,9 @@ export const STORY_TIMELINE: StoryMoment[] = [
     imageUrl: '/img/connection.jpg'
   },
   {
-    year: 'College Days',
+    year: 'Start of Relationship',
     title: 'The Confession',
-    description: 'After college, I finally found the courageto turn what we had into something more. I asked her to be my girlfriend— and from that moment on, we began writing our story together. We explored life hand in hand— traveling to new places, laughing over the smallest things, arguing and learning from it, celebrating victories and growing through failures. Every step, every moment, we discovered not just the world, but each other.',
+    description: 'After college, I finally found the courage to turn what we had into something more. I asked her to be my girlfriend— and from that moment on, we began writing our story together. We explored life hand in hand— traveling to new places, laughing over the smallest things, arguing and learning from it, celebrating victories and growing through failures. Every step, every moment, we discovered not just the world, but each other.',
     imageUrl: '/img/confession.jpg'
   },
   {
@@ -31,25 +31,34 @@ export const STORY_TIMELINE: StoryMoment[] = [
 ];
 
 export const ENTOURAGE: EntourageMember[] = [
-  { name: 'Judy Anne Bacla-an', role: 'Matron of Honor', imageUrl: '/img/Entourage/matron_of_honor.jpg' },
   { name: 'Darryl Bacla-an', role: 'Best Man', imageUrl: '/img/Entourage/bestman.jpg' },
-  { name: 'Catherine Salundaguit', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_cath.jpg' },
-  { name: 'Jessiel Colentava', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_jessiel.jpg' },
-  { name: 'Kimberly Yu', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_kim.jpg' },
-  { name: 'Dharyle Rosal', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_dars.jpg' },
   { name: 'Jay Sipulo', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_jay.jpg' },
   { name: 'Luigi Sordilla', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_luigi.jpg' },
   { name: 'Rogelio Judilla', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_rogelio.jpg' },
   { name: 'Junel Nellas', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_junel.jpg' },
+  { name: 'Judy Anne Bacla-an', role: 'Matron of Honor', imageUrl: '/img/Entourage/matron_of_honor.jpg' },
+  { name: 'Catherine Salundaguit', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_cath.jpg' },
+  { name: 'Jessiel Colentava', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_jessiel.jpg' },
+  { name: 'Kimberly Yu', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_kim.jpg' },
+  { name: 'Dharyle Rosal', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_dars.jpg' },
+  { name: 'Rou Gelianne D. Judilla', role: 'Flower Girl', imageUrl: '/img/Entourage/flowergirl_rou.jpg' },
+  { name: 'Rachelle Caily R. Fernandez', role: 'Flower Girl', imageUrl: '/img/Entourage/caily.jpg' },
+  { name: 'Joie Arsenal', role: 'Flower Girl', imageUrl: '/img/Entourage/flowergirl_joie.jpg' },
+  { name: 'Carlisle Abucay', role: 'Bible Bearer', imageUrl: '/img/Entourage/biblebearer_carlisle.jpg' },
+  { name: 'Theo Everette C. Jabierto', role: 'Ring Bearer', imageUrl: '/img/Entourage/theo.jpg' },
+  { name: 'Aliya Sy', role: 'Coin Bearer', imageUrl: '/img/Entourage/aliya.jpg' },
 ];
 
 export const PRINCIPAL_SPONSORS: EntourageMember[] = [
   { name: 'Mr. and Mrs. Amancio', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_amancios.jpg' },
   { name: 'Mr. and Mrs. Harner', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_harners.jpg' },
+  { name: 'Mr. and Mrs. Pantuso', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_pantusos.jpg', isMystery: true },
+];
+
+export const SECONDARY_SPONSORS: EntourageMember[] = [
   { name: 'Mr. and Mrs. Abucay', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_abucay.jpg' },
   { name: 'Mr. and Mrs. Arsenal', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_arsenals.jpg' },
   { name: 'Mr. and Mrs. Maceda', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_maceda.jpg' },
-  { name: 'Mr. and Mrs. Pantuso', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_pantusos.jpg', isMystery: true },
 ];
 
 export const EVENTS: EventDetail[] = [
@@ -77,7 +86,7 @@ export const EVENTS: EventDetail[] = [
     id: 'e3',
     title: 'The Ceremony',
     date: 'April 28, 2026',
-    time: '5:00 PM',
+    time: '4:00 PM',
     location: 'Amara Subdivision Clubhouse Catarman, Liloan',
     description: 'The moment we become one. Please arrive 30 minutes early.',
     isPrivate: false,
@@ -87,7 +96,7 @@ export const EVENTS: EventDetail[] = [
     id: 'e4',
     title: 'Grand Reception',
     date: 'April 28, 2026',
-    time: '6:00 PM',
+    time: '6:30 PM',
     location: 'Amara Subdivision Clubhouse Catarman, Liloan',
     description: 'Dinner, dancing, and memories to last a lifetime.',
     isPrivate: false,
