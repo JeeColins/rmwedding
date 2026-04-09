@@ -94,7 +94,7 @@ export const EVENTS: EventDetail[] = [
     location: 'Amara Subdivision Clubhouse Catarman, Liloan',
     description: 'The moment we become one. Please arrive 30 minutes early.',
     isPrivate: false,
-    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sarah+%26+James+Wedding+Ceremony&dates=20260428T170000Z/20260428T180000Z'
+    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Wedding+Ceremony&dates=20260428T170000Z/20260428T180000Z'
   },
   {
     id: 'e4',
@@ -104,7 +104,7 @@ export const EVENTS: EventDetail[] = [
     location: 'Amara Subdivision Clubhouse Catarman, Liloan',
     description: 'Dinner, dancing, and memories to last a lifetime.',
     isPrivate: false,
-    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sarah+%26+James+Reception&dates=20260428T180000Z/20260428T000000Z'
+    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Reception&dates=20260428T180000Z/20260428T000000Z'
   }
 ];
 
