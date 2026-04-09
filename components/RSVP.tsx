@@ -12,14 +12,7 @@ import { motion } from 'framer-motion';
  *   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
  *   var data = JSON.parse(e.postData.contents);
  *   sheet.appendRow([
- *     new Date(), 
- *     data.fullName, 
- *     data.email, 
  *     data.attending, 
- *     data.plusOne, 
- *     data.meal, 
- *     data.allergies, 
- *     data.note
  *   ]);
  *   return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
  *     .setMimeType(ContentService.MimeType.JSON);
@@ -31,7 +24,7 @@ import { motion } from 'framer-motion';
  * 7. Copy the Web App URL and paste it into the GOOGLE_SCRIPT_URL constant below.
  */
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzrD3zPfWPiYhgcjlVIHzBNx_At9glInYOvKimYC2Mvtm0Fe02Ykaj_yzOozH_DZhlK/exec'; // PASTE YOUR APPS SCRIPT URL HERE
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwokJeh7mFM2wHN9IESs8A8DLMerKIv8UtRk9c8-v4VG8FUoS4Z1eNmaEygW1g1nE4l/exec'; // PASTE YOUR APPS SCRIPT URL HERE
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -48,15 +41,75 @@ const RSVP: React.FC = () => {
     attending: 'Yes'
   });
   
+  const [isChecking, setIsChecking] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [seatingChart, setSeatingChart] = useState<{[key: string]: string}>({});
+  const [assignedTables, setAssignedTables] = useState<{name: string, table: string}[]>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+   const checkInvitation = async () => {
+      if (!GOOGLE_SCRIPT_URL) {
+        setError("Please configure the Google Script URL to enable RSVP.");
+        return;
+      }
+
+      if (!formData.fullName.trim()) {
+        setError("Please enter your full name.");
+        return;
+      }
+
+      setIsChecking(true);
+      setError(null);
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await response.json();
+        const guestList = data.guests || [];
+        setSeatingChart(data.seating || {});
+        
+        const inputNames = formData.fullName.split(',').map(n => n.trim().toLowerCase()).filter(n => n !== '');
+        
+        const notFound: string[] = [];
+        const alreadyResponded: string[] = [];
+        
+        inputNames.forEach(name => {
+          const guest = guestList.find((g: any) => g.name.includes(name));
+          console.log('guest:', guest);
+          if (!guest) {
+            notFound.push(name);
+          } else if (guest.responded) {
+            alreadyResponded.push(name);
+          }
+        });
+
+        if (notFound.length > 0) {
+          setError(`Name(s) not found: ${notFound.join(', ')}. Check the spelling/ask the couple.`);
+          setIsChecking(false);
+          return;
+        }
+
+        if (alreadyResponded.length > 0) {
+          setError(`Already responded: ${alreadyResponded.join(', ')}. If you need to change your RSVP, please contact the couple directly.`);
+          setIsChecking(false);
+          return;
+        }
+
+        setIsVerified(true);
+      } catch (err) {
+        console.error("Verification Error:", err);
+        setError("Could not verify invitation. Please try again or contact us.");
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+ const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!GOOGLE_SCRIPT_URL) {
-      setError("Please configure the Google Script URL to enable RSVP submission.");
+    if (!isVerified) {
+      await checkInvitation();
       return;
     }
 
@@ -64,34 +117,38 @@ const RSVP: React.FC = () => {
     setError(null);
 
     try {
-      // Split names by comma and trim whitespace
       const names = formData.fullName.split(',').map(name => name.trim()).filter(name => name !== '');
       
-      if (names.length === 0) {
-        setError("Please enter at least one name.");
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Send a separate request for each name to ensure they appear as individual rows in the sheet
       const requests = names.map(name => {
-        const submissionData = {
-          ...formData,
-          fullName: name
-        };
-        
+        const submissionData = { ...formData, fullName: name };
         return fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
           cache: 'no-cache',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(submissionData),
         });
       });
 
       await Promise.all(requests);
+
+      // Extract assigned tables for the successful submission
+      if (formData.attending === 'yes') {
+        const inputNames = formData.fullName.split(',').map(n => n.trim().toLowerCase()).filter(n => n !== '');
+        const seatingKeys = Object.keys(seatingChart);
+
+        const assignments = inputNames
+          .map(name => {
+            const lowerName = name.toLowerCase();
+            // Find the key that contains the input name
+            const matchedKey = seatingKeys.find(key => key.includes(lowerName));
+            return matchedKey ? { name, table: seatingChart[matchedKey] } : null;
+          })
+          .filter((item): item is {name: string, table: string} => !!item);
+        
+        setAssignedTables(assignments);
+      }
+
       setSubmitted(true);
     } catch (err) {
       console.error("RSVP Submission Error:", err);
@@ -137,8 +194,24 @@ const RSVP: React.FC = () => {
             {/* Your RSVP has been received and saved to our guest list. We can't wait to celebrate with you!<br />(Table assignment to be announced on April 15, 2026) */}
             {isAttending 
               ? "Your RSVP has been received and saved to our guest list. We can't wait to celebrate with you!" 
-              : "Thank you for letting us know. We're sorry you can't make it, but we'll be thinking of you on our special day!"}
+              : "We appreciate you for letting us know. We're sorry you can't make it, but we'll be thinking of you on our special day!"}
           </p>
+
+          {isAttending && assignedTables.length > 0 && (
+            <div className="mb-8 p-6 bg-[#c19a6b]/10 rounded-2xl border border-[#c19a6b]/30 animate-fade-in-up">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-[#c19a6b] mb-4">Your Assigned Table</h3>
+              <div className="flex flex-col gap-3">
+                {assignedTables.map((table, idx) => (
+                  <div key={idx} className="flex justify-between items-center bg-white px-6 py-3 rounded-xl shadow-sm border border-[#c19a6b]/10">
+                    <span className="text-sm font-medium text-gray-700">{table.name}</span>
+                    <span className="text-xl serif text-[#c19a6b]">{table.table}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] text-gray-500 mt-4 italic">Please check the seating chart at the venue for more details.</p>
+            </div>
+          )}
+
           <motion.button 
             onClick={() => setSubmitted(false)}
             className="text-[#c19a6b] font-bold uppercase tracking-widest text-xs border-b border-[#c19a6b] pb-1 hover:opacity-70 transition-opacity"
@@ -169,7 +242,7 @@ const RSVP: React.FC = () => {
         <motion.form 
           onSubmit={handleSubmit} 
           // className="grid grid-cols-1 md:grid-cols-1 gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative overflow-hidden"
-          className={`grid grid-cols-1 ${isAttending ? 'md:grid-cols-1' : ''} gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative 
+          className={`grid grid-cols-1 z-50 ${isAttending ? 'md:grid-cols-1' : ''} gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative 
           overflow-hidden transition-all duration-500`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -190,15 +263,46 @@ const RSVP: React.FC = () => {
           >
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest mb-2 opacity-70">Full Name</label>
-              <motion.input 
-                required
-                disabled={isSubmitting}
-                type="text" 
-                className="w-full bg-transparent border-b border-white/30 p-2 outline-none focus:border-[#c19a6b] transition-colors disabled:opacity-50"
-                value={formData.fullName}
-                onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                whileFocus={{ scale: 1.02 }}
-              />
+              <div className="flex flex-col gap-2">
+                <motion.input 
+                  required
+                  disabled={isSubmitting}
+                  type="text" 
+                  placeholder='e.g. John Doe, Jane Doe'
+                  className="w-full bg-transparent border-b border-white/30 p-2 outline-none focus:border-[#c19a6b] transition-colors disabled:opacity-50"
+                  value={formData.fullName}
+                  onChange={(e) => {
+                    setFormData({...formData, fullName: e.target.value});
+                    setError(null);
+                  }}
+                  whileFocus={{ scale: 1.02 }}
+                />
+                {!isVerified && (
+                  <button
+                    type="button"
+                    onClick={checkInvitation}
+                    disabled={isChecking || !formData.fullName.trim()}
+                    className="self-start text-[10px] font-bold uppercase tracking-widest bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors disabled:opacity-30"
+                  >
+                    {isChecking ? 'Verifying...' : 'Check Invitation'}
+                  </button>
+                )}
+                {isVerified && (
+                  <div className="flex items-center gap-2 text-green-400 text-[10px] font-bold uppercase tracking-widest">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Invitation Verified
+                    <button 
+                      type="button"
+                      onClick={() => setIsVerified(false)}
+                      className="ml-2 text-white/40 hover:text-white underline"
+                    >
+                      Change
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
             {/* <div>
               <label className="block text-xs font-bold uppercase tracking-widest mb-2 opacity-70">Email Address</label>
@@ -211,6 +315,7 @@ const RSVP: React.FC = () => {
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
               />
             </div> */}
+            {isVerified && (
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest mb-2 opacity-70">Will you attend?</label>
               <motion.div 
@@ -230,6 +335,7 @@ const RSVP: React.FC = () => {
                 </label>
               </motion.div>
             </div>
+            )}
           </motion.div>
 
           {/* <div className="space-y-6">
@@ -291,12 +397,17 @@ const RSVP: React.FC = () => {
           >
              <motion.button 
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isChecking}
               className="w-full py-4 bg-[#c19a6b] text-white rounded-full font-bold uppercase tracking-widest hover:bg-[#a67d51] transition-all shadow-lg active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
              >
-               {isSubmitting ? (
+               {isChecking ? (
+                 <>
+                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                   Verifying...
+                 </>
+               ) : isSubmitting ? ( 
                  <>
                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                    Sending Response...
@@ -305,6 +416,17 @@ const RSVP: React.FC = () => {
              </motion.button>
           </motion.div>
         </motion.form>
+      </motion.div>
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-1 max-w-6xl mx-auto px-6 mt-40 animate-fade-in-up"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        <motion.div className='col-span-3'>
+          <img src="/img/snapshots.png" alt="Shared Moments" className="w-full h-full object-fit rounded-1xl shadow-lg" />
+        </motion.div>
       </motion.div>
     </section>
   );

@@ -28,8 +28,8 @@ const Story: React.FC = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.3 }}
       >
-        <h2 className="text-white text-4xl md:text-5xl serif mb-4">Our Story</h2>
-        <p className="text-[#c19a6b] italic serif text-lg">From a coffee shop to forever</p>
+        <h2 className="text-white text-4xl md:text-5xl serif mb-5">Our Story</h2>
+        <p className="text-sm font-bold text-[#c19a6b] tracking-widest uppercase">A love story worth telling</p>
       </motion.div>
 
       <div className="space-y-24">
@@ -50,7 +50,7 @@ const Story: React.FC = () => {
               <img 
                 src={moment.imageUrl} 
                 alt={moment.title} 
-                className="w-full h-[600px] object-cover md:object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-auto object-cover md:object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </motion.div>
             <motion.div 

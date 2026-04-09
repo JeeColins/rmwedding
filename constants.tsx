@@ -25,38 +25,42 @@ export const STORY_TIMELINE: StoryMoment[] = [
   {
     year: 'The Proposal',
     title: 'Engagement',
-    description: 'Four years passed, four years of love, growth, and choosing one another every day. And then, in a place that meant so much to both of us— a pickleball court where we shared countless memories—I got down on one knee and asked her the most important question of my life.',
+    description: 'Four years passed, four years of love, growth, and choosing one another every day. And then, in a place that meant so much to both of us— a pickleball court where we shared countless memories—I got down on one knee and asked her the most important question of my life. What started as a normal encounter in my life,turns out the one soon to be my wife.',
     imageUrl: '/img/theproposal.jpg'
   }
 ];
 
 export const ENTOURAGE: EntourageMember[] = [
   { name: 'Darryl Bacla-an', role: 'Best Man', imageUrl: '/img/Entourage/bestman.jpg' },
-  { name: 'Jay Sipulo', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_jay.jpg' },
-  { name: 'Luigi Sordilla', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_luigi.jpg' },
-  { name: 'Rogelio Judilla', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_rogelio.jpg' },
-  { name: 'Junel Nellas', role: 'Groomsmen', imageUrl: '/img/Entourage/groomsmen_junel.jpg' },
+  { name: 'Jay Sipulo', role: 'Groomsman', imageUrl: '/img/Entourage/groomsmen_jay.jpg' },
+  { name: 'Luigi Sordilla', role: 'Groomsman', imageUrl: '/img/Entourage/groomsmen_luigi.jpg' },
+  { name: 'Rogelio Judilla', role: 'Groomsman', imageUrl: '/img/Entourage/groomsmen_rogelio.jpg' },
+  { name: 'Junel Nellas', role: 'Groomsman', imageUrl: '/img/Entourage/groomsmen_junel.jpg' },
   { name: 'Judy Anne Bacla-an', role: 'Matron of Honor', imageUrl: '/img/Entourage/matron_of_honor.jpg' },
   { name: 'Catherine Salundaguit', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_cath.jpg' },
   { name: 'Jessiel Colentava', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_jessiel.jpg' },
   { name: 'Kimberly Yu', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_kim.jpg' },
   { name: 'Dharyle Rosal', role: 'Bridesmaid', imageUrl: '/img/Entourage/bridesmaid_dars.jpg' },
   { name: 'Rou Gelianne D. Judilla', role: 'Flower Girl', imageUrl: '/img/Entourage/flowergirl_rou.jpg' },
-  { name: 'Rachelle Caily R. Fernandez', role: 'Flower Girl', imageUrl: '/img/Entourage/caily.jpg' },
+  { name: 'Caily Rachelle R. Fernandez', role: 'Flower Girl', imageUrl: '/img/Entourage/caily.jpg' },
   { name: 'Joie Arsenal', role: 'Flower Girl', imageUrl: '/img/Entourage/flowergirl_joie.jpg' },
   { name: 'Carlisle Abucay', role: 'Bible Bearer', imageUrl: '/img/Entourage/biblebearer_carlisle.jpg' },
   { name: 'Theo Everette C. Jabierto', role: 'Ring Bearer', imageUrl: '/img/Entourage/theo.jpg' },
-  { name: 'Aliya Sy', role: 'Coin Bearer', imageUrl: '/img/Entourage/aliya.jpg' },
+  { name: 'Nataliyah See', role: 'Coin Bearer', imageUrl: '/img/Entourage/aliya.jpg' },
+];
+
+export const OFFICIANT: EntourageMember[] = [
+  { name: 'Rev. Pastor Effem Amancio', role: 'Officiant', imageUrl: '/img/Entourage/effem.jpg' },
 ];
 
 export const PRINCIPAL_SPONSORS: EntourageMember[] = [
-  { name: 'Mr. and Mrs. Amancio', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_amancios.jpg' },
+  { name: 'Mrs. Noelli Amancio', role: 'Ninang', imageUrl: '/img/Entourage/principal_sponsor_noelli.jpg' },
   { name: 'Mr. and Mrs. Harner', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_harners.jpg' },
   { name: 'Mr. and Mrs. Pantuso', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_pantusos.jpg', isMystery: true },
 ];
 
 export const SECONDARY_SPONSORS: EntourageMember[] = [
-  { name: 'Mr. and Mrs. Abucay', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_abucay.jpg' },
+  { name: 'Mr. and Mrs. Abucay', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/abucays.jpg' },
   { name: 'Mr. and Mrs. Arsenal', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_arsenals.jpg' },
   { name: 'Mr. and Mrs. Maceda', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_maceda.jpg' },
 ];

@@ -55,19 +55,19 @@ const Hero: React.FC = () => {
   }, [value]);
   
   return (
-    <div className="flex flex-col items-center min-w-[70px] md:min-w-[90px] overflow-hidden">
-      <div className="relative h-[45px] md:h-[65px] flex items-center justify-center">
+    <div className="flex flex-col items-center min-w-[60px] sm:min-w-[70px] md:min-w-[90px] overflow-hidden">
+      <div className="relative h-[35px] sm:h-[45px] md:h-[65px] flex items-center justify-center">
         <span 
           // key={value} 
           // className="text-3xl md:text-5xl font-light serif animate-flip-number"
-          className={`text-3xl md:text-5xl font-light serif ${
+          className={`text-2xl sm:text-3xl md:text-5xl font-light serif ${
             animate ? "animate-flip-number" : ""
           }`}
         >
           {value.toString().padStart(2, '0')}
         </span>
       </div>
-      <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] opacity-70 font-bold mt-1">
+      <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-[0.2em] opacity-70 font-bold mt-1">
         {label}
       </span>
     </div>
@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
 };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative h-[100dvh] flex items-center justify-center overflow-hidden">
       <motion.div 
         // className="absolute bg-[url('/img/planebglandscape.png')] h-full opacity-80 inset-0 z-0 scale-100 md:scale-100 opacity-90 bg-cover"
         className="absolute bg-[#0c162c] h-full opacity-80 inset-0 z-0 scale-100 md:scale-100 opacity-90 bg-cover"
@@ -85,7 +85,7 @@ const Hero: React.FC = () => {
       />
       
       <motion.div 
-        className="relative mb-10 z-10 text-center text-white px-4"
+        className="relative z-10 text-center text-white px-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, staggerChildren: 0.2 }}
@@ -98,16 +98,16 @@ const Hero: React.FC = () => {
         > */}
           {/* Join us in the celebration of */}
         {/* </motion.h2> */}
-        <motion.h1 
+        <motion.div 
           id="randm" 
-          className="text-6xl md:text-8xl mb-5 tracking-tight"
+          className="flex items-center justify-center w-full h-auto mb-5"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1.2, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
           {/* Raffy <br /> & <br />Mary May */}
-          <img src="/img/rflogo.png" alt="rmlogo" className="w-full h-[400px] object-fit" />
-        </motion.h1>
+          <img src="/img/rflogo.png" alt="rmlogo" className="w-[80%] sm:w-[60%] md:w-[50%] lg:w-[70%] object-fit h-full" />
+        </motion.div>
         <motion.div 
           className="h-px w-32 bg-white/40 mx-auto mb-5"
           initial={{ scaleX: 0 }}
@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         />
         <motion.p 
-          className="text-xl md:text-3xl serif italic mb-5 font-light"
+          className="text-lg sm:text-xl md:text-2xl serif italic mb-5 font-light"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -124,21 +124,21 @@ const Hero: React.FC = () => {
         </motion.p>
         
         <motion.div 
-          className="inline-flex gap-4 md:gap-8 items-center bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-2xl shadow-2xl"
+          className="inline-flex gap-2 sm:gap-4 md:gap-8 items-center bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <CountdownUnit value={timeLeft.days} label="Days" />
-          <div className="h-8 w-px bg-white/20 hidden md:block" />
+          <div className="h-8 w-px bg-white/20 hidden sm:block" />
           <CountdownUnit value={timeLeft.hours} label="Hours" />
-          <div className="h-8 w-px bg-white/20 hidden md:block" />
+          <div className="h-8 w-px bg-white/20 hidden sm:block" />
           <CountdownUnit value={timeLeft.minutes} label="Mins" />
-          <div className="h-8 w-px bg-white/20 hidden md:block" />
+          <div className="h-8 w-px bg-white/20 hidden sm:block" />
           <CountdownUnit value={timeLeft.seconds} label="Secs" />
         </motion.div>
         <motion.h1 
-          className="text-4xl md:text-5xl font-light mt-5 mb-5 tracking-tight"
+          className="text-2xl sm:text-3xl md:text-4xl font-light mt-10 mb-5 tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -147,14 +147,14 @@ const Hero: React.FC = () => {
         </motion.h1>
       </motion.div>
       <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.6 }}
         transition={{ duration: 1, delay: 1 }}
       >
         <span className="text-white text-[10px] uppercase tracking-[0.3em] font-bold">Scroll to discover</span>
         <motion.div 
-          className="mt-2"
+          className="mt-2 p-2"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         >

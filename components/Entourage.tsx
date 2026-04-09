@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { ENTOURAGE, PRINCIPAL_SPONSORS, SECONDARY_SPONSORS, WEDDING_DATE } from '../constants';
+import { OFFICIANT, ENTOURAGE, PRINCIPAL_SPONSORS, SECONDARY_SPONSORS, WEDDING_DATE } from '../constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Entourage: React.FC = () => {
+  const officiant = OFFICIANT[0]; // Assuming there's only one officiant
   const allMembers = [
     ...PRINCIPAL_SPONSORS.map(m => ({ ...m, category: 'Principal Sponsor' })),
     ...SECONDARY_SPONSORS.map(m => ({ ...m, category: 'Secondary Sponsor' })),
@@ -37,11 +38,73 @@ const Entourage: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + allMembers.length) % allMembers.length);
   };
 
+  const officiant_index = officiant; // Assuming there's only one officiant
   const currentMember = allMembers[currentIndex];
   const isCurrentlyMystery = currentMember.isMystery && !isRevealed;
 
   return (
     <section id="entourage" className="py-24 bg-[#0c162c] bg-cover opacity-140">
+      <div className="max-w-6xl mx-auto px-6 mt-20 mb-40">
+        
+        {/* Spotlight Flip Gallery */}
+        <div className="relative max-w-2xl mx-auto min-h-[450px] md:h-[500px] flex items-center justify-center">
+          {/* Member Card Spotlight */}
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={currentIndex}
+              className="w-full max-w-sm bg-white rounded-[3rem] p-8 text-center shadow-[0_35px_60px_-15px_rgba(193,154,107,0.15)] border border-[#faf9f6] animate-fade-in-up"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div 
+                className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c19a6b] mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                {officiant_index.role}
+              </motion.div>
+              
+              <motion.div 
+                className="relative mb-8 mx-auto w-48 h-48 md:w-64 md:h-64 overflow-hidden rounded-full border-8 border-[#faf9f6] shadow-inner group"
+                whileHover={{ scale: 1.05 }}
+              >
+                <img 
+                  src={officiant_index.imageUrl} 
+                  alt={officiant_index.name} 
+                  className={`w-full h-full object-cover transition-all duration-700 scale-110 group-hover:scale-100 ${isCurrentlyMystery ? 'grayscale' : ''}`}
+                />
+                {/* <div className="absolute inset-0 bg-[#c19a6b]/10 opacity-0 group-hover:opacity-100 transition-opacity" /> */}
+                {isCurrentlyMystery && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                    <span className="text-white text-4xl">?</span>
+                  </div>
+                )}
+              </motion.div>
+
+              <motion.h3 
+                className="text-2xl md:text-3xl serif mb-2 text-[#333]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                {officiant_index.name}
+              </motion.h3>
+              <motion.p 
+                className="text-sm text-[#c19a6b] italic serif mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15 }}
+              >
+                Name
+              </motion.p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+      
       <div className="max-w-6xl mx-auto px-6">
         <motion.div 
           className="text-center mb-16"
@@ -55,7 +118,7 @@ const Entourage: React.FC = () => {
         </motion.div>
 
         {/* Spotlight Flip Gallery */}
-        <div className="relative max-w-2xl mx-auto h-[500px] flex items-center justify-center">
+        <div className="relative max-w-2xl mx-auto min-h-[450px] md:h-[500px] flex items-center justify-center">
           
           {/* Controls - Left */}
           <motion.button 
