@@ -24,7 +24,7 @@ import { motion } from 'framer-motion';
  * 7. Copy the Web App URL and paste it into the GOOGLE_SCRIPT_URL constant below.
  */
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwokJeh7mFM2wHN9IESs8A8DLMerKIv8UtRk9c8-v4VG8FUoS4Z1eNmaEygW1g1nE4l/exec'; // PASTE YOUR APPS SCRIPT URL HERE
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwC3z_OhyhoGK1_TtW3OB_axbN927N1l7pDq776jchPVtaHkG9JT4sQuxlNFYs9xEbf/exec'; // PASTE YOUR APPS SCRIPT URL HERE
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -48,6 +48,7 @@ const RSVP: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [seatingChart, setSeatingChart] = useState<{[key: string]: string}>({});
   const [assignedTables, setAssignedTables] = useState<{name: string, table: string}[]>([]);
+  const [verifiedFullNames, setVerifiedFullNames] = useState<string[]>([]);
 
    const checkInvitation = async () => {
       if (!GOOGLE_SCRIPT_URL) {
@@ -73,14 +74,18 @@ const RSVP: React.FC = () => {
         
         const notFound: string[] = [];
         const alreadyResponded: string[] = [];
+        const matchedFullNames: string[] = [];
         
         inputNames.forEach(name => {
           const guest = guestList.find((g: any) => g.name.includes(name));
           console.log('guest:', guest);
           if (!guest) {
             notFound.push(name);
-          } else if (guest.responded) {
-            alreadyResponded.push(name);
+          } else {
+            matchedFullNames.push(guest.name); // Store the actual full name from the sheet
+            if (guest.responded) {
+              alreadyResponded.push(name);
+            }
           }
         });
 
@@ -96,6 +101,7 @@ const RSVP: React.FC = () => {
           return;
         }
 
+        setVerifiedFullNames(matchedFullNames);
         setIsVerified(true);
       } catch (err) {
         console.error("Verification Error:", err);
@@ -119,7 +125,7 @@ const RSVP: React.FC = () => {
     try {
       const names = formData.fullName.split(',').map(name => name.trim()).filter(name => name !== '');
       
-      const requests = names.map(name => {
+      const requests = verifiedFullNames.map(name => {
         const submissionData = { ...formData, fullName: name };
         return fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
@@ -133,11 +139,11 @@ const RSVP: React.FC = () => {
       await Promise.all(requests);
 
       // Extract assigned tables for the successful submission
-      if (formData.attending === 'yes') {
+      if (formData.attending === 'Yes') {
         const inputNames = formData.fullName.split(',').map(n => n.trim().toLowerCase()).filter(n => n !== '');
         const seatingKeys = Object.keys(seatingChart);
 
-        const assignments = inputNames
+        const assignments = verifiedFullNames
           .map(name => {
             const lowerName = name.toLowerCase();
             // Find the key that contains the input name
@@ -159,11 +165,11 @@ const RSVP: React.FC = () => {
   };
 
   if (submitted) {
-    const isAttending = formData.attending === 'yes';
+    const isAttending = formData.attending === 'Yes';
     return (
       <section id="rsvp" className="py-24 px-6 bg-[#0c162c] text-center">
         <motion.div 
-          className="max-w-xl mx-auto bg-white p-12 rounded-3xl shadow-xl border border-[#c19a6b]/20"
+          className="max-w-xl mx-auto bg-white p-8 rounded-3xl shadow-xl border border-[#c19a6b]/20"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -203,7 +209,7 @@ const RSVP: React.FC = () => {
               <div className="flex flex-col gap-3">
                 {assignedTables.map((table, idx) => (
                   <div key={idx} className="flex justify-between items-center bg-white px-6 py-3 rounded-xl shadow-sm border border-[#c19a6b]/10">
-                    <span className="text-sm font-medium text-gray-700">{table.name}</span>
+                    <span className="text-sm font-medium text-gray-700 capitalize">{table.name}</span>
                     <span className="text-xl serif text-[#c19a6b]">{table.table}</span>
                   </div>
                 ))}
@@ -221,11 +227,22 @@ const RSVP: React.FC = () => {
             Edit RSVP
           </motion.button>
         </motion.div>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-1 max-w-6xl mx-auto px-6 mt-40 animate-fade-in-up"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <motion.div className='col-span-3'>
+            <img src="/img/snapshots.png" alt="Shared Moments" className="w-full h-full object-fit rounded-1xl shadow-lg" />
+          </motion.div>
+        </motion.div>
       </section>
     );
   }
 
-  const isAttending = formData.attending === 'yes';
+  const isAttending = formData.attending === 'Yes';
 
   return (
     <section id="rsvp" className="py-24 bg-[#0c162c] text-white">
@@ -242,7 +259,7 @@ const RSVP: React.FC = () => {
         <motion.form 
           onSubmit={handleSubmit} 
           // className="grid grid-cols-1 md:grid-cols-1 gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative overflow-hidden"
-          className={`grid grid-cols-1 z-50 ${isAttending ? 'md:grid-cols-1' : ''} gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative 
+          className={`grid grid-cols-1 z-50 ${isAttending && isVerified ? 'md:grid-cols-1' : ''} gap-8 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-1xl border border-white/10 relative 
           overflow-hidden transition-all duration-500`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -266,7 +283,7 @@ const RSVP: React.FC = () => {
               <div className="flex flex-col gap-2">
                 <motion.input 
                   required
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isChecking || isVerified}
                   type="text" 
                   placeholder='e.g. John Doe, Jane Doe'
                   className="w-full bg-transparent border-b border-white/30 p-2 outline-none focus:border-[#c19a6b] transition-colors disabled:opacity-50"
@@ -326,11 +343,11 @@ const RSVP: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <label className="flex items-center gap-2 cursor-pointer group">
-                  <input type="radio" name="attending" disabled={isSubmitting} checked={formData.attending === 'yes'} onChange={() => setFormData({...formData, attending: 'yes'})} className="accent-[#c19a6b]" />
+                  <input type="radio" name="attending" disabled={isSubmitting} checked={formData.attending === 'Yes'} onChange={() => setFormData({...formData, attending: 'Yes'})} className="accent-[#c19a6b]" />
                   <span className="group-hover:text-[#c19a6b] transition-colors">Joyfully Accept</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer group">
-                  <input type="radio" name="attending" disabled={isSubmitting} checked={formData.attending === 'no'} onChange={() => setFormData({...formData, attending: 'no'})} className="accent-[#c19a6b]" />
+                  <input type="radio" name="attending" disabled={isSubmitting} checked={formData.attending === 'No'} onChange={() => setFormData({...formData, attending: 'No'})} className="accent-[#c19a6b]" />
                   <span className="group-hover:text-[#c19a6b] transition-colors">Regretfully Decline</span>
                 </label>
               </motion.div>
@@ -412,7 +429,7 @@ const RSVP: React.FC = () => {
                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                    Sending Response...
                  </>
-               ) : 'Send Response'}
+               ) : isVerified ? 'Send Response' : 'Check Invitation'}
              </motion.button>
           </motion.div>
         </motion.form>

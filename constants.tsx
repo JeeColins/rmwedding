@@ -50,7 +50,7 @@ export const ENTOURAGE: EntourageMember[] = [
 ];
 
 export const OFFICIANT: EntourageMember[] = [
-  { name: 'Rev. Pastor Effem Amancio', role: 'Officiant', imageUrl: '/img/Entourage/effem.jpg' },
+  { name: 'Rev. Effem Amancio', role: 'Officiant', imageUrl: '/img/Entourage/effem.jpg' },
 ];
 
 export const PRINCIPAL_SPONSORS: EntourageMember[] = [
@@ -71,7 +71,7 @@ export const EVENTS: EventDetail[] = [
     title: 'The Welcome Mehndi',
     date: 'April 28, 2026',
     time: '6:00 PM',
-    location: 'The Palm Garden, Estate Loft',
+    location: 'Amara Subdivision, Catarman, Liloan, Cebu',
     description: 'A night of vibrant colors, henna, and music to kick off our celebrations.',
     isPrivate: true,
     googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sarah+%26+James+Mehndi&dates=20260428T180000Z/20260428T210000Z'
@@ -81,7 +81,7 @@ export const EVENTS: EventDetail[] = [
     title: 'Rehearsal Dinner',
     date: 'April 28, 2026',
     time: '7:30 PM',
-    location: 'Amara Subdivision Clubhouse Catarman, Liloan',
+    location: 'Amara Subdivision, Catarman, Liloan, Cebu',
     description: 'An intimate dinner for our wedding party and family.',
     isPrivate: true,
     googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sarah+%26+James+Rehearsal&dates=20260428T193000Z/20260428T220000Z'
@@ -91,7 +91,7 @@ export const EVENTS: EventDetail[] = [
     title: 'The Ceremony',
     date: 'April 28, 2026',
     time: '4:00 PM',
-    location: 'Amara Subdivision Clubhouse Catarman, Liloan',
+    location: 'Amara Subdivision, Catarman, Liloan, Cebu',
     description: 'The moment we become one. Please arrive 30 minutes early.',
     isPrivate: false,
     googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Wedding+Ceremony&dates=20260428T170000Z/20260428T180000Z'
@@ -101,7 +101,7 @@ export const EVENTS: EventDetail[] = [
     title: 'Grand Reception',
     date: 'April 28, 2026',
     time: '6:30 PM',
-    location: 'Amara Subdivision Clubhouse Catarman, Liloan',
+    location: 'Amara Subdivision, Catarman, Liloan, Cebu',
     description: 'Dinner, dancing, and memories to last a lifetime.',
     isPrivate: false,
     googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Reception&dates=20260428T180000Z/20260428T000000Z'

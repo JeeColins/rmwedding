@@ -1,42 +1,30 @@
 
 import { label } from 'framer-motion/client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Navbar: React.FC = () => {
   const [show, setShow] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 50);
-  //   };
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
 
-      if (currentScrollY > lastScrollY) {
-        // Scrolling down
+      if (currentScrollY > lastScrollY.current + 10 && currentScrollY > 100) {
         setShow(false);
-      } else {
-        // Scrolling up
+      } else if (currentScrollY < lastScrollY.current - 10) {
         setShow(true);
       }
 
-      setLastScrollY(currentScrollY);
+      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
-  const [menuOpen, setMenuOpen] = useState(false);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { label: 'Home', href: '#hero' },
@@ -62,15 +50,13 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
     document.body.style.overflow = 'unset';
   };
-<div className={`text-2xl serif transition-colors ${show ? 'text-white' : 'text-white'}`}>
-        <img src="/img/rmlogo.png" alt="RSVP" className="w-[55px] h-auto object-fit" />
-      </div>
+
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 px-6 py-4 md:px-12 flex justify-between items-center ${
-          isScrolled || isMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent text-white'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-[60] transition-transform duration-500 px-6 py-4 md:px-12 flex justify-between items-center ${
+          isScrolled || isMenuOpen ? 'bg-white/5 text-white' : 'bg-transparent text-white'
+        } ${show || isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}
       >
         <div className={`text-2xl md:text-3xl serif transition-colors duration-500 ${
           isScrolled || isMenuOpen ? 'text-[#c19a6b]' : 'text-white'
@@ -85,7 +71,7 @@ const Navbar: React.FC = () => {
               key={item.label}
               href={item.href}
               className={`uppercase tracking-[0.2em] text-[10px] font-bold hover:text-[#c19a6b] transition-all relative group ${
-                isScrolled ? 'text-[#333]' : 'text-white'
+                isScrolled ? 'text-[#666]' : 'text-white'
               }`}
             >
               {item.label}
@@ -96,7 +82,7 @@ const Navbar: React.FC = () => {
             href="#rsvp" 
             className={`px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${
               isScrolled 
-                ? 'bg-[#c19a6b] text-white hover:bg-[#a67d51]' 
+                ? 'bg-white text-[#0c162c] hover:bg-[#a67d51]' 
                 : 'bg-white font-bold text-[#0c162c] hover:bg-opacity-90'
             }`}
           >
@@ -131,7 +117,7 @@ const Navbar: React.FC = () => {
         }`}
       >
         <div className="flex flex-col h-full items-center justify-center p-8 space-y-8">
-          <div id="randm" className="text-[#c19a6b]/20 text-6xl serif absolute top-24 left-1/2 -translate-x-1/2 select-none">
+          <div id="randm" className="text-[#c19a6b]/20 text-6xl serif absolute top-20 left-1/2 -translate-x-1/2 select-none">
             Raffy & Mary May
           </div>
           
