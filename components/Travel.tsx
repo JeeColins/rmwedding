@@ -5,19 +5,23 @@ import { motion } from 'framer-motion';
 
 const Travel: React.FC = () => {
   return (
-    <section id="travel" className="py-24 bg-[#0c162c] px-6 max-w-8xl mx-auto">
+    <section id="travel" className="relative py-24 bg-[#0c162c] px-6 max-w-8xl mx-auto">
+      {/* <img
+        src='/public/img/stamp.png'
+        className='absolute inset-x-0 top-0 mx-auto w-[50rem] h-auto object-cover bg-no-repeat bg-blend-overlay opacity-5'
+      /> */}
       <motion.div 
-        className="text-center mb-16"
+        className="text-center mb-2"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <h2 className="text-white text-4xl md:text-5xl serif mb-4">Wedding Venue</h2>
-        <p className="text-[#c19a6b] italic serif text-lg">Amara Subdivision, Catarman</p>
+        <p className="text-[#c19a6b] italic serif text-lg">Amara Subdivision, Catarman, Liloan, Cebu</p>
       </motion.div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div></div>
         <motion.div 
           className="lg:col-span-1 space-y-8"

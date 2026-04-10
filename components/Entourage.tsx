@@ -8,7 +8,7 @@ const Entourage: React.FC = () => {
   const allMembers = [
     ...PRINCIPAL_SPONSORS.map(m => ({ ...m, category: 'Principal Sponsor' })),
     ...SECONDARY_SPONSORS.map(m => ({ ...m, category: 'Secondary Sponsor' })),
-    ...ENTOURAGE.map(m => ({ ...m, category: 'Wedding Party' })),
+    ...ENTOURAGE.map(m => ({ ...m, category: 'Wedding Member' })),
   ];
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Entourage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <motion.div 
-                className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c19a6b] mb-6"
+                className="text-[12px] font-bold uppercase tracking-[0.4em] text-[#c19a6b] mb-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -98,7 +98,7 @@ const Entourage: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.15 }}
               >
-                Name
+                {/* Name */}
               </motion.p>
             </motion.div>
           </AnimatePresence>
@@ -107,7 +107,7 @@ const Entourage: React.FC = () => {
       
       <div className="max-w-6xl mx-auto px-6">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

@@ -13,6 +13,13 @@ import Travel from './components/Travel';
 import Highlights from './components/Highlights';
 import RSVP from './components/RSVP';
 
+// const Separator: React.FC<{ src: string }> = ({ src }) => (
+//   <div
+//     className="h-32 w-full bg-[#0c162c] object-fill bg-center bg-no-repeat bg-contain"
+//     style={{ backgroundImage: `url(${src})` }}
+//   />
+// );
+
 const App: React.FC = () => {
   const [hasTakenOff, setHasTakenOff] = useState(false);
 
@@ -124,51 +131,19 @@ const App: React.FC = () => {
           >
             <div className="text-center z-20 px-4">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-20 mb-4"
-              >
-                <h1 id="randm" className="text-6xl md:text-7xl font-normal mb-4 tracking-tighter text-white">Raffy & Mary May</h1>
-                <p className="text-md text-blue-300 font-light tracking-[0.3em] uppercase">Are getting married</p>
-              </motion.div>
-              {/* Background Clouds/Stars */}
-              <div className="absolute inset-0 pointer-events-none">
-                {[...Array(20)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute bg-white/10 rounded-full"
-                    style={{
-                      width: Math.random() * 100 + 50,
-                      height: Math.random() * 20 + 10,
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                    }}
-                    animate={{
-                      x: [0, 100, 0],
-                      opacity: [0.1, 0.3, 0.1],
-                    }}
-                    transition={{
-                      duration: Math.random() * 10 + 10,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  />
-                ))}
-              </div>
-              <motion.div
                 animate={{ 
                   y: [-20, -1000],
                   rotate: [-0, -0],
-                  scale: [0.3, 0.3],
+                  scale: [0.3, 0.6],
                   opacity: [0.8, 0]
                 }}
-                transition={{ duration: 1.5, ease: "easeIn" }}
+                transition={{ duration: 1.2, ease: "easeIn" }}
               >
                 {/* <Plane className="w-24 h-24 text-white fill-white" /> */}
                 <img 
                   src="/img/planeanimation.png" 
                   alt="Plane" 
-                  className="w-full h-200 object-contain drop-shadow-2xl"
+                  className="w-full h-200 object-contain drop-shadow-2xl bg-transparent"
                   referrerPolicy="no-referrer"
                 />
               </motion.div>
@@ -178,14 +153,21 @@ const App: React.FC = () => {
     </AnimatePresence>
       <Navbar />
       <Hero />
+      {/* <Separator src="/img/separator1.png" /> */}
       <main>
         <Story />
+        {/* <Separator src="/img/separator1.png" /> */}
         <Entourage />
+        {/* <Separator src="/img/separator2.png" /> */}
         <Events />
+        {/* <Separator src="/img/separator3.png" /> */}
         <DressCode />
+        {/* <Separator src="/img/separator4.png" /> */}
         <Travel />
+        {/* <Separator src="/img/separator1.png" /> */}
         {/* <Highlights /> */}
         <RSVP />
+        {/* <Separator src="/img/separator2.png" /> */}
       </main>
       
       <footer className="py-12 bg-[#0c162c] text-center">
