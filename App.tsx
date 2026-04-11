@@ -12,6 +12,7 @@ import DressCode from './components/DressCode';
 import Travel from './components/Travel';
 import Highlights from './components/Highlights';
 import RSVP from './components/RSVP';
+// import SectionSeparator from './components/SectionSeparator';
 
 // const Separator: React.FC<{ src: string }> = ({ src }) => (
 //   <div
@@ -171,16 +172,18 @@ const App: React.FC = () => {
       </main>
       
       <footer className="py-12 bg-[#0c162c] text-center">
-        <div className="serif text-2xl mb-4 text-[#c19a6b]">
+        <div className="flex justify-center gap-6 mt-6">
+          <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors"></a>
+          <a href="https://www.biblegateway.com/passage/?search=Mark%2010%3A9&version=NIV" className="tracking-[0.2em] text-gray-200 hover:text-[#c19a6b] transition-colors">Mark 10:9</a>
+          <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors"></a>
+        </div>
+        <p className="text-xs italic tracking-[0.2em] text-[#eb9830] mt-2 mb-2">"Therefore what God has joined together, let no one separate"</p>
+        <div className="serif text-2xl mt-20 mb-4 text-[#c19a6b]">
           {/* R & M */}
           <img src="/img/rmlogo.png" alt="rmlogo" className="w-[80px] h-[80px] object-fit mx-auto" />
         </div>
-        <p className="text-xs uppercase tracking-[0.4em] text-gray-100 mb-2">Made with love • 2026</p>
-        <div className="flex justify-center gap-6 mt-6">
-          <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors">Instagram</a>
-          <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors">Registry</a>
-          <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors">Contact</a>
-        </div>
+        <p className="text-xs uppercase tracking-[0.01em] text-gray-500 mb-2">Made with love • 2026</p>
+        
       </footer>
     </div>
   );

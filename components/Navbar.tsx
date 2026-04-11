@@ -78,16 +78,6 @@ const Navbar: React.FC = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#c19a6b] transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-          <a 
-            href="#rsvp" 
-            className={`px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${
-              isScrolled 
-                ? 'bg-white text-[#0c162c] hover:bg-[#a67d51]' 
-                : 'bg-white font-bold text-[#0c162c] hover:bg-opacity-90'
-            }`}
-          >
-            RSVP Now
-          </a>
         </div>
 
         {/* Mobile Hamburger Button */}

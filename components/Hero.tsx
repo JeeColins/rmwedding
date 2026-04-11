@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { WEDDING_DATE } from '../constants';
+import ScratchReveal from './ScratchReveal';
 
 interface TimeLeft {
   days: number;
@@ -12,6 +13,7 @@ interface TimeLeft {
 
 const Hero: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -60,7 +62,7 @@ const Hero: React.FC = () => {
         <span 
           // key={value} 
           // className="text-3xl md:text-5xl font-light serif animate-flip-number"
-          className={`text-2xl sm:text-3xl md:text-5xl font-light serif ${
+          className={`text-2xl sm:text-3xl md:text-4xl font-light serif ${
             animate ? "animate-flip-number" : ""
           }`}
         >
@@ -122,23 +124,36 @@ const Hero: React.FC = () => {
         >
           April 28, 2026 • Catarman, Liloan
         </motion.p>
-        
-        <motion.div 
-          className="inline-flex gap-2 sm:gap-4 md:gap-8 items-center bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-2xl shadow-2xl"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <CountdownUnit value={timeLeft.days} label="Days" />
-          <div className="h-8 w-px bg-white/20 hidden sm:block" />
-          <CountdownUnit value={timeLeft.hours} label="Hours" />
-          <div className="h-8 w-px bg-white/20 hidden sm:block" />
-          <CountdownUnit value={timeLeft.minutes} label="Mins" />
-          <div className="h-8 w-px bg-white/20 hidden sm:block" />
-          <CountdownUnit value={timeLeft.seconds} label="Secs" />
-        </motion.div>
+        <div className="inline-block animate-fade-in-up stagger-2">
+          <ScratchReveal 
+            className="rounded-[2rem] shadow-2xl"
+            overlayImage="/img/biometriclogo.png"
+            brushSize={40}
+            onComplete={() => setIsRevealed(true)}
+          >
+            <motion.div 
+              className="inline-flex gap-2 sm:gap-3 md:gap-4 items-center bg-white/10 border border-white/20 px-6 py-4 rounded-2xl shadow-2xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <CountdownUnit value={timeLeft.days} label="Days" />
+              <div className="h-8 w-px bg-white/20 hidden sm:block" />
+              <CountdownUnit value={timeLeft.hours} label="Hours" />
+              <div className="h-8 w-px bg-white/20 hidden sm:block" />
+              <CountdownUnit value={timeLeft.minutes} label="Mins" />
+              <div className="h-8 w-px bg-white/20 hidden sm:block" />
+              <CountdownUnit value={timeLeft.seconds} label="Secs" />
+            </motion.div>
+          </ScratchReveal>
+          {/* {isRevealed && (
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 animate-bounce text-[#c19a6b] font-bold uppercase tracking-widest text-sm">
+              See you soon! ✨
+            </div>
+          )} */}
+        </div>
         <motion.h1 
-          className="text-2xl sm:text-3xl md:text-4xl font-light mt-10 mb-5 tracking-tight"
+          className="text-2xl sm:text-3xl md:text-3xl font-light mt-10 mb-5 tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
