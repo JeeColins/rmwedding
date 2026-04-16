@@ -177,7 +177,7 @@ const App: React.FC = () => {
           <a href="https://www.biblegateway.com/passage/?search=Mark%2010%3A9&version=NIV" className="tracking-[0.2em] text-gray-200 hover:text-[#c19a6b] transition-colors">Mark 10:9</a>
           <a href="#" className="text-gray-400 hover:text-[#c19a6b] transition-colors"></a>
         </div>
-        <p className="text-xs italic tracking-[0.2em] text-[#eb9830] mt-2 mb-2">"Therefore what God has joined together, let no one separate"</p>
+        <p className="text-sm italic tracking-[0.3em] text-[#eb9830] mt-2 mb-2">"Therefore what God has joined together, let no one separate"</p>
         <div className="serif text-2xl mt-20 mb-4 text-[#c19a6b]">
           {/* R & M */}
           <img src="/img/rmlogo.png" alt="rmlogo" className="w-[80px] h-[80px] object-fit mx-auto" />

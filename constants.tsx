@@ -25,7 +25,7 @@ export const STORY_TIMELINE: StoryMoment[] = [
   {
     year: 'The Proposal',
     title: 'Engagement',
-    description: 'Four years passed, four years of love, growth, and choosing one another every day. And then, in a place that meant so much to both of us— a pickleball court where we shared countless memories—I got down on one knee and asked her the most important question of my life. What started as a normal encounter in my life,turns out the one soon to be my wife.',
+    description: 'Four years passed, four years of love, growth, and choosing one another every day. And then, in a place that meant so much to both of us— a pickleball court where we shared countless memories—I got down on one knee and asked her the most important question of my life. What started as a normal encounter in my life turned out to be the one who would soon become my wife.',
     imageUrl: '/img/theproposal.jpg'
   }
 ];

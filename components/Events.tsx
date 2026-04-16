@@ -67,7 +67,7 @@ const Events: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 whileHover={{ y: -4, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+                className="bg-[#fffef7] p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 {event.isPrivate && (
                    <div className="absolute top-4 right-4 bg-[#c19a6b] text-white text-[10px] uppercase font-bold px-2 py-1 rounded z-10">

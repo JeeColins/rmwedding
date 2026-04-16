@@ -116,21 +116,30 @@ const Hero: React.FC = () => {
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         />
-        <motion.p 
+        {/* <motion.p 
           className="text-lg sm:text-xl md:text-2xl serif italic mb-5 font-light"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           April 28, 2026 • Catarman, Liloan
-        </motion.p>
+        </motion.p> */}
         <div className="inline-block animate-fade-in-up stagger-2">
           <ScratchReveal 
             className="rounded-[2rem] shadow-2xl"
             overlayImage="/img/biometriclogo.png"
-            brushSize={40}
+            brushSize={20}
             onComplete={() => setIsRevealed(true)}
           >
+            <motion.p 
+              className="text-lg sm:text-xl md:text-2xl serif italic mb-5 font-light"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              April 28, 2026 • Catarman, Liloan
+            </motion.p>
+
             <motion.div 
               className="inline-flex gap-2 sm:gap-3 md:gap-4 items-center bg-white/10 border border-white/20 px-6 py-4 rounded-2xl shadow-2xl"
               initial={{ opacity: 0, scale: 0.9 }}

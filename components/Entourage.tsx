@@ -52,7 +52,7 @@ const Entourage: React.FC = () => {
           <AnimatePresence mode="wait">
             <motion.div 
               key={currentIndex}
-              className="w-full max-w-sm bg-white rounded-[3rem] p-8 text-center shadow-[0_35px_60px_-15px_rgba(193,154,107,0.15)] border border-[#faf9f6] animate-fade-in-up"
+              className="w-full max-w-sm bg-[#fffcec] rounded-[3rem] p-8 text-center shadow-[0_35px_60px_-15px_rgba(193,154,107,0.15)] border border-[#faf9f6] animate-fade-in-up"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -137,7 +137,7 @@ const Entourage: React.FC = () => {
           <AnimatePresence mode="wait">
             <motion.div 
               key={currentIndex}
-              className="w-full max-w-sm bg-white rounded-[3rem] p-8 text-center shadow-[0_35px_60px_-15px_rgba(193,154,107,0.15)] border border-[#faf9f6]"
+              className="w-full max-w-sm bg-[#fffcec] rounded-[3rem] p-8 text-center shadow-[0_35px_60px_-15px_rgba(193,154,107,0.15)] border border-[#faf9f6]"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
