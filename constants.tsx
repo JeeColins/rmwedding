@@ -56,7 +56,7 @@ export const OFFICIANT: EntourageMember[] = [
 export const PRINCIPAL_SPONSORS: EntourageMember[] = [
   { name: 'Mrs. Noelli Amancio', role: 'Ninang', imageUrl: '/img/Entourage/principal_sponsor_noelli.jpg' },
   { name: 'Mr. and Mrs. Harner', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_harners.jpg' },
-  { name: 'Mr. and Mrs. Pantuso', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_pantusos.jpg', isMystery: true },
+  { name: 'Mr. and Mrs. Pantuso', role: 'Ninong & Ninang', imageUrl: '/img/Entourage/principal_sponsor_pantusos.jpg', isMystery: false },
 ];
 
 export const SECONDARY_SPONSORS: EntourageMember[] = [
@@ -94,7 +94,7 @@ export const EVENTS: EventDetail[] = [
     location: 'Amara Subdivision, Catarman, Liloan, Cebu',
     description: 'The moment we become one. Please arrive 30 minutes early.',
     isPrivate: false,
-    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Wedding+Ceremony&dates=20260428T170000Z/20260428T180000Z'
+    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Wedding+Ceremony&dates=20260428T160000'
   },
   {
     id: 'e4',
@@ -104,7 +104,7 @@ export const EVENTS: EventDetail[] = [
     location: 'Amara Subdivision, Catarman, Liloan, Cebu',
     description: 'Dinner, dancing, and memories to last a lifetime.',
     isPrivate: false,
-    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Reception&dates=20260428T180000Z/20260428T000000Z'
+    googleCalendarUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Raffy+%26+MaryMay+Reception&dates=20260428T183000/20260428T230000'
   }
 ];
 
